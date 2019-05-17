@@ -1,0 +1,215 @@
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+
+</head>
+
+<body>
+    <h1>Mapa Zona Arqueologica v2.0</h1>
+<div id="mapa" style="width: 700px; height: 500px;">
+--Aca va nuestro mapa--
+</div>
+
+<script type = "text/javascript">
+var divMapa = document.getElementById('mapa');
+navigator.geolocation.getCurrentPosition( fn_ok, fn_mal );
+function fn_mal( ){ }
+function fn_ok( rta ){
+    var lat = rta.coords.latitude;
+    var lon = rta.coords.longitude;
+
+    var gLatLon = new google.maps.LatLng ( lat, lon );
+    var objConfig = { 
+         zoom: 17,
+        center: gLatLon 
+    }
+    var gMapa = new google.maps.Map( divMapa, objConfig ); 
+    var objConfigMarker = {
+        position: gLatLon,
+        map: gMapa,
+        title: "Usted esta aqui"
+    }
+    var gMarker = new google.maps.Marker( objConfigMarker )
+
+
+    var gCoder = new google.maps.Geocoder( );
+    var objInformacion = {
+        address: 'Zona Arqueológica de Toniná,Ocosingo,Chis,México'
+    }
+
+
+    
+        gCoder.geocode( objInformacion, fn_coder);
+
+        function fn_coder( datos ){
+            var coordenadas = datos[0].geometry.location;
+            var config = {
+                map: gMapa,
+                position: coordenadas,
+                tittle: 'Zona Arqueológica de Toniná,Ocosingo,Chis,México'
+            }
+
+            var gMarkerDV = new google.maps.Marker( config )
+                gMarkerDV.setIcon('Piramide.png');
+
+
+        var objHTML = {
+            content: '<div style ="height: 150px; width: 300px; "> <h2>Zona Arqueológica de Toniná,Ocosingo,Chis,México</h2> <h3>!!Visitanos</h3><p> Informacion <a href="http://localhost/toni/index.php ">clic</a></p></div>'
+        }
+
+            var gIW = new google.maps.InfoWindow( objHTML );
+
+
+            google.maps.event.addListener( gMarkerDV, 'click', function(){
+                gIW.open( gMapa,gMarkerDV );
+
+
+      
+
+            } );
+        }
+
+
+        var objConfigDr = {
+            map: gMapa,
+        }
+
+        var objConfigDs = {
+            origin: gLatLon,
+            destination: objInformacion.address,
+            travelMode: google.maps.TravelMode.DRIVING 
+        }
+         
+         
+        var ds = new google.maps.DirectionsService();
+        var dr = new google.maps.DirectionsRenderer( objConfigDr );
+
+
+        ds.route( objConfigDs, fnRutear );
+
+        function fnRutear( resultados, status ) {
+            if( status == 'OK'){
+                dr.setDirections( resultados );
+
+            }else{
+                alert('Upss! Ocurrio un error' +status)
+            }
+        }
+
+
+
+
+        var gCoderSC = new google.maps.Geocoder( );
+    var objInformacionSC = {
+        address: 'San Cristóbal de Las Casas, Chis, México'
+    }
+
+
+    
+        gCoderSC.geocode( objInformacionSC, fn_coderSC);
+
+        function fn_coderSC( datosSC ){
+            var coordenadasSC = datosSC[0].geometry.location;
+            var configSC = {
+                map: gMapa,
+                position: coordenadasSC,
+                tittle: 'Ciudad de San Cristobal de las Casas Chiapas'
+            }
+
+            var gMarkerDVSC = new google.maps.Marker( configSC )
+                gMarkerDVSC.setIcon('Ciudad.png');
+
+
+        var objHTMLSC = {
+            content: '<div style ="height: 150px; width: 300px; "> <h2>Sancristobal de las Casas Chiapas </h2> <h3>!!Visitanos</h3><p> Informacion <a href="http://localhost/toni/index.php ">clic</a></p></div>'
+        }
+
+            var gIWSC = new google.maps.InfoWindow( objHTMLSC );
+
+
+            google.maps.event.addListener( gMarkerDVSC, 'click', function(){
+                gIWSC.open( gMapa,gMarkerDVSC );
+
+
+      
+
+            } );
+        }
+    
+
+
+
+        var gCoderCT = new google.maps.Geocoder( );
+    var objInformacionCT = {
+        address: 'Comitán de Domínguez, Chis, México'
+    }
+        gCoderCT.geocode( objInformacionCT, fn_coderCT);
+
+        function fn_coderCT( datosCT ){
+            var coordenadasCT = datosCT[0].geometry.location;
+            var configCT = {
+                map: gMapa,
+                position: coordenadasCT,
+                tittle: 'Ciudad de Comitan de Dominguez'
+            }
+
+            var gMarkerDVCT = new google.maps.Marker( configCT )
+                gMarkerDVCT.setIcon('Ciudad.png');
+
+
+        var objHTMLCT = {
+            content: '<div style ="height: 150px; width: 300px; "> <h2>Comitan de Dominguez Chiapas </h2> <h3>!!Visitanos</h3><p> Informacion <a href="http://localhost/toni/index.php ">clic</a></p></div>'
+        }
+
+            var gIWCT = new google.maps.InfoWindow( objHTMLCT );
+
+
+            google.maps.event.addListener( gMarkerDVCT, 'click', function(){
+                gIWCT.open( gMapa,gMarkerDVCT );
+            } );
+        }
+
+
+
+
+        
+        var gCoderPQ = new google.maps.Geocoder( );
+    var objInformacionPQ = {
+        address: 'Palenque, Chis, México'
+    }
+        gCoderPQ.geocode( objInformacionPQ, fn_coderPQ);
+
+        function fn_coderPQ( datosPQ ){
+            var coordenadasPQ = datosPQ[0].geometry.location;
+            var configPQ = {
+                map: gMapa,
+                position: coordenadasPQ,
+                tittle: 'Zona arqueologica Palenque '
+            }
+
+            var gMarkerDVPQ = new google.maps.Marker( configPQ )
+                gMarkerDVPQ.setIcon('Piramide.png');
+
+
+        var objHTMLPQ = {
+            content: '<div style ="height: 150px; width: 300px; "> <h2>Zona arqueologica de Palenque Chiapas </h2> <h3>!!Visitanos</h3><p> Informacion <a href="http://localhost/toni/index.php ">clic</a></p></div>'
+        }
+
+            var gIWPQ = new google.maps.InfoWindow( objHTMLPQ );
+
+
+            google.maps.event.addListener( gMarkerDVPQ, 'click', function(){
+                gIWPQ.open( gMapa,gMarkerDVPQ );
+
+
+      
+
+            } );
+        }
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_1qWR9NrZ8ueZYY7_jfUHQ34yocjzZt4&callback=initMap"
+async defer></script>
+</body>
+</html>

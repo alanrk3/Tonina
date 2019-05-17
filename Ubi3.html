@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta charset="UTF_8">
+<title>MAPA ZONA CON 2 UBICACIONES</title>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_1qWR9NrZ8ueZYY7_jfUHQ34yocjzZt4&callback=initMap"
+async defer></script>
+</head>
+<body>
+  <H1>mapa interactivo</H1>
+<div id="mapa" style="width: 700px; height: 500px;">
+--Mapa interactivo--
+
+
+</div>
+<script type="text/javascript">
+var divMapa = document.getElementById('mapa');
+navigator.geolocation.getCurrentPosition( fn_ok, fn_mal );
+function fn_mal(){ }
+function fn_ok( rta ){
+         var lat = rta.coords.latitude;
+         var lon = rta.coords.longitude;
+
+         var gLatLon = new google.maps.LatLng ( lat, lon );
+         var objConfig = {
+           zoom: 17,
+           center: gLatLon
+         }
+
+
+         var gMapa = new google.maps.Map( divMapa, objConfig );
+         var objConfigMarker = {
+           position: gLatLon,
+           map: gMapa
+         }
+       
+         var gMaker = new google.maps.Marker( objConfigMarker );
+
+        
+
+
+
+} 
+</script>
+
+
+
+</body>
+</html>
